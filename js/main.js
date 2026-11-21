@@ -134,7 +134,10 @@
   const cards = $$('.card');
   cards.forEach((c, i) => {
     const next = cards[i + 1]; if (!next) return;
-    gsap.to(c, { scale: .92 + i * .008, filter: 'brightness(.55)', ease: 'none', scrollTrigger: { trigger: next, start: 'top 90%', end: 'top 30%', scrub: true } });
+    // só escurece quando o próximo cartão começa a cobrir este (e não quando ele aparece lá embaixo)
+    const stuck = el => parseFloat(getComputedStyle(el).top) || 0;
+    gsap.to(c, { scale: .96, filter: 'brightness(.45)', ease: 'none', scrollTrigger: {
+      trigger: next, start: () => 'top ' + (stuck(c) + c.offsetHeight) + 'px', end: () => 'top ' + stuck(next) + 'px', scrub: true, invalidateOnRefresh: true } });
   });
 
   // caso: o print do site se levanta em 3D
