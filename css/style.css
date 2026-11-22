@@ -106,6 +106,13 @@ h3{font-size:clamp(26px,2.4vw,36px);font-stretch:80%}
 .bar--s{width:45%;height:8px;margin-top:8px}
 .bar--h{height:18px;width:80%;background:#2b2d36;margin-bottom:8px}
 .bar--m{width:60%}
+@media (max-width:800px){
+  .journey__pin{height:auto;padding:100px 0 80px}
+  .journey__head{flex-direction:column;align-items:flex-start;gap:16px;margin-bottom:44px}
+  .journey__head p{max-width:none;font-size:16px}
+  .journey__track{flex-direction:column;width:auto;gap:52px;transform:none!important}
+  .stop{width:100%}
+}
 /* 01 busca */
 .gsearch{position:absolute;top:28px;left:28px;right:28px;height:52px;border-radius:26px;background:#fff;color:#202124;display:flex;align-items:center;gap:12px;padding:0 20px;font:500 16px var(--body)}
 .gsearch__icon{width:16px;height:16px;border:3px solid #5F6368;border-radius:50%;position:relative;flex:none}

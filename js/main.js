@@ -117,17 +117,22 @@
 
   // caminho do cliente: rolagem horizontal
   const track = $('[data-track]'), stops = $$('.stop');
-  const dist = () => track.scrollWidth - innerWidth + 40;
-  const hTween = gsap.to(track, { x: () => -dist(), ease: 'none', scrollTrigger: { trigger: '[data-journey]', pin: '.journey__pin', start: 'top top', end: () => '+=' + dist(), scrub: .8, invalidateOnRefresh: true } });
-  stops.forEach(st => ScrollTrigger.create({
-    trigger: st, containerAnimation: hTween, start: 'left 75%', end: 'right 10%',
-    onEnter: () => on(st), onEnterBack: () => on(st)
-  }));
+  const mm = gsap.matchMedia();
+  mm.add('(min-width: 801px)', () => {                 // computador: a seção para e rola de lado
+    const dist = () => track.scrollWidth - innerWidth + 40;
+    const hTween = gsap.to(track, { x: () => -dist(), ease: 'none', scrollTrigger: { trigger: '[data-journey]', pin: '.journey__pin', start: 'top top', end: () => '+=' + dist(), scrub: .8, invalidateOnRefresh: true } });
+    stops.forEach(st => ScrollTrigger.create({ trigger: st, containerAnimation: hTween, start: 'left 75%', end: 'right 10%', onEnter: () => on(st), onEnterBack: () => on(st) }));
+  });
+  mm.add('(max-width: 800px)', () => {                 // celular: lista vertical, cada parada acende ao entrar na tela
+    stops.forEach(st => ScrollTrigger.create({ trigger: st, start: 'top 75%', onEnter: () => on(st), onEnterBack: () => on(st) }));
+  });
+  // o vídeo do celular toca sempre que aparece na tela (e pausa fora dela)
+  const pv = $('[data-lazy-video]');
+  if (pv) new IntersectionObserver(([e]) => e.isIntersecting ? pv.play().catch(() => {}) : pv.pause(), { threshold: .25 }).observe(pv);
   function on(st) {
     if (st.classList.contains('is-on')) return; st.classList.add('is-on');
     const typer = $('[data-type]', st);
     if (typer) { const txt = typer.dataset.type; let i = 0; const id = setInterval(() => { typer.textContent = txt.slice(0, ++i); if (i >= txt.length) clearInterval(id); }, 55); }
-    const v = $('[data-lazy-video]', st); if (v) { v.preload = 'auto'; v.play().catch(() => {}); }
   }
 
   // serviços: o cartão de trás encolhe quando o próximo chega
