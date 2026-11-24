@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://lucassousa777.github.io/spotlit/sitemap.xml
+Sitemap: https://spotlit.com.br/sitemap.xml

@@ -4,7 +4,7 @@ import { mkdirSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 const here = dirname(fileURLToPath(import.meta.url));
-const BASE = 'https://lucassousa777.github.io/spotlit/';
+const BASE = 'https://spotlit.com.br/';
 const WA = 'https://wa.me/5581992071058?text=' + encodeURIComponent('Olá! Quero o diagnóstico grátis do meu negócio.');
 const HOJE = new Date().toISOString().slice(0, 10);
 const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
