@@ -1,0 +1,5 @@
+# Liberado para buscadores e robôs de IA (Google, Bing, ChatGPT, Perplexity, Claude)
+User-agent: *
+Allow: /
+
+Sitemap: https://lucassousa777.github.io/spotlit/sitemap.xml

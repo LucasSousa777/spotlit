@@ -251,3 +251,7 @@ h3{font-size:clamp(26px,2.4vw,36px);font-stretch:80%}
   .close__light{clip-path:none}.close__inner{opacity:1}.close__dot{transform:none}
   .pin--you{transform:rotate(45deg)}.ai-card li.is-you{transform:none;opacity:1}
 }
+
+.card__more{display:inline-block;margin-top:14px;margin-right:14px;color:var(--y);font-weight:600;font-size:15px}
+.card__more:hover{text-decoration:underline}
+
