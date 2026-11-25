@@ -140,6 +140,58 @@ h2{font-weight:400;font-size:clamp(34px,3.4vw,56px);line-height:1;letter-spacing
 .s-wa .inp i{background:#00a884}
 .end{position:relative;z-index:6;background:var(--bg);padding:120px var(--pad) 160px;text-align:center;color:var(--muted);font-size:15px}
 
+/* ---------- seção 3: trabalho de verdade ---------- */
+.work{position:relative;z-index:6;background:#0f1013;color:#f4f2ec;padding:clamp(90px,14vh,150px) var(--pad) clamp(90px,12vh,140px);overflow:hidden}
+.work .kick{color:#a5a6aa}
+.work h2{max-width:18ch}
+.work .head{display:flex;justify-content:space-between;align-items:end;gap:40px;flex-wrap:wrap}
+.work .head>p{max-width:40ch;color:#b9babd;font-size:clamp(15px,1.1vw,17px);line-height:1.5}
+.case{margin-top:clamp(48px,8vh,90px);display:grid;grid-template-columns:1.35fr 1fr;gap:clamp(28px,5vw,80px);align-items:center}
+.dev{position:relative;perspective:1600px}
+.browser{display:block;text-decoration:none;color:inherit;border-radius:16px;background:#1f2024;box-shadow:0 50px 100px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.08) inset;overflow:hidden;transform-origin:50% 100%;will-change:transform}
+.browser .chrome{display:flex;align-items:center;gap:7px;padding:12px 14px}
+.browser .chrome i{width:11px;height:11px;border-radius:50%;background:#3a3b40}
+.browser .chrome span{margin-left:14px;flex:1;max-width:340px;background:#2b2c31;border-radius:8px;padding:6px 12px;font-size:12px;color:#a5a6aa}
+.browser .shot{position:relative;aspect-ratio:1424/739;overflow:hidden}
+.browser img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.browser:hover img{transform:scale(1.03)}
+.glowline{position:absolute;left:10%;right:10%;bottom:-40px;height:80px;background:radial-gradient(closest-side,rgba(255,201,60,.45),transparent);filter:blur(20px);pointer-events:none}
+.info .who{font-size:13px;color:#a5a6aa}
+.info h3{margin-top:8px;font-weight:400;font-size:clamp(26px,2.4vw,38px);letter-spacing:-.04em;line-height:1.05}
+.info .did{margin-top:12px;color:#b9babd;line-height:1.5;font-size:15px;max-width:42ch}
+.nums{margin-top:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.nums div{border-top:1px solid rgba(255,255,255,.14);padding-top:12px}
+.nums b{display:block;font-weight:400;font-size:clamp(40px,4vw,64px);letter-spacing:-.05em;line-height:1;color:var(--y);font-variant-numeric:tabular-nums}
+.nums small{display:block;margin-top:8px;font-size:12.5px;line-height:1.35;color:#a5a6aa}
+.quote{margin-top:34px;position:relative;padding:22px 22px 20px;border-radius:20px;background:#1a1b1f;box-shadow:inset 0 0 0 1px rgba(255,255,255,.07)}
+.quote:before{content:"\201C";position:absolute;top:-26px;left:16px;font:400 90px/1 Georgia,serif;color:var(--y)}
+.quote p{font-size:clamp(16px,1.2vw,18px);line-height:1.5}
+.quote footer{margin-top:14px;display:flex;align-items:center;gap:10px;font-size:13px;color:#a5a6aa}
+.quote footer b{color:#f4f2ec;font-weight:500}
+.quote footer i{width:30px;height:30px;flex:none;border-radius:50%;background:var(--y);display:grid;place-items:center;font-style:normal;color:#0b0c10;font-weight:500;font-size:13px}
+.lnk{display:inline-flex;align-items:center;gap:8px;margin-top:22px;color:#f4f2ec;text-decoration:none;font-size:15px;background:linear-gradient(var(--y),var(--y)) 0 100%/0 1.5px no-repeat;transition:background-size .4s;padding-bottom:3px}
+.lnk:hover{background-size:100% 1.5px}
+.reels{margin-top:clamp(90px,14vh,150px);display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(28px,5vw,80px);align-items:center}
+.reels h3{font-weight:400;font-size:clamp(28px,2.8vw,44px);letter-spacing:-.045em;line-height:1.02;max-width:14ch}
+.reels .txt3>p:not(.kick){margin-top:16px;color:#b9babd;line-height:1.5;max-width:40ch}
+.reels ul{list-style:none;margin-top:22px;display:flex;flex-wrap:wrap;gap:8px}
+.reels li{font-size:13px;padding:8px 12px;border-radius:99px;background:#1a1b1f;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.fan{position:relative;height:min(78vh,640px);display:flex;justify-content:center;align-items:center}
+.fan:before{content:"";position:absolute;width:70%;aspect-ratio:1;border-radius:50%;background:radial-gradient(closest-side,rgba(255,201,60,.28),transparent)}
+.mph{position:absolute;width:min(270px,40%);aspect-ratio:9/19;border-radius:40px;background:#000;padding:9px;box-shadow:0 40px 80px rgba(0,0,0,.55),0 0 0 1.5px #2b2c31 inset;will-change:transform;cursor:pointer}
+.mph video{width:100%;height:100%;object-fit:cover;border-radius:31px;display:block;background:#111}
+.mph .snd{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);font-size:12px;padding:7px 12px;border-radius:99px;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);white-space:nowrap}
+@media (max-width:760px){
+  .work h2{font-size:30px}
+  .case,.reels{grid-template-columns:1fr}
+  .browser{border-radius:12px}.browser .chrome{padding:9px 10px}.browser .chrome span{font-size:11px}
+  .nums b{font-size:40px}
+  .fan{height:500px}
+  .mph{width:168px;border-radius:32px;padding:7px}.mph video{border-radius:25px}
+}
+.top.dark{background:rgba(15,16,19,.82);color:#f4f2ec}
+.top.dark .btn{background:var(--y);color:var(--ink)}
+
 @media (max-width:760px){
   .fade{background:linear-gradient(0deg,#eef0ea 0%,rgba(238,240,234,.95) 42%,rgba(238,240,234,0) 62%)}
   .copy{top:auto;bottom:70px;transform:none;max-width:none;right:var(--pad)}
@@ -277,7 +329,50 @@ h2{font-weight:400;font-size:clamp(34px,3.4vw,56px);line-height:1;letter-spacing
   </div>
 </section>
 
-<section class="end">A próxima seção entra aqui. Esta prévia mostra só a capa e o caminho do cliente.</section>
+<section class="work" id="trabalho">
+  <div class="head">
+    <div><p class="kick">Trabalho de verdade</p><h2>Feito pela Spotlit, no ar e funcionando.</h2></div>
+    <p>Nada de modelo pronto. Cada site, perfil e vídeo é feito para o negócio do cliente, com o nome dele.</p>
+  </div>
+  <div class="case">
+    <div class="dev">
+      <a class="browser" id="browser" href="https://arrudaevieira.adv.br" target="_blank" rel="noopener" aria-label="Abrir o site da Arruda &amp; Vieira Advocacia">
+        <div class="chrome"><i></i><i></i><i></i><span>arrudaevieira.adv.br</span></div>
+        <div class="shot"><img src="../img/caso-av.jpg" alt="Página inicial do site da Arruda &amp; Vieira Advocacia" width="1424" height="739" loading="lazy"></div>
+      </a>
+      <div class="glowline"></div>
+    </div>
+    <div class="info">
+      <p class="who">Caruaru, PE · Advocacia</p>
+      <h3>Arruda &amp; Vieira Advocacia</h3>
+      <p class="did">Criamos o site, reorganizamos o perfil no Google, cadastramos no Search Console e montamos a primeira campanha de anúncios.</p>
+      <div class="nums">
+        <div><b data-n="6">0</b><small>páginas, uma por área de atuação</small></div>
+        <div><b data-n="22">0</b><small>serviços no perfil do Google</small></div>
+        <div><b data-n="10">0</b><small>avaliações respondidas</small></div>
+      </div>
+      <blockquote class="quote">
+        <p>Amei o seu trabalho, foi impecável, estou recebendo vários elogios do site, muito obrigada por tudo, o tráfego já está trazendo resultado para o escritório, fico feliz com nossa parceria!</p>
+        <footer><i>V</i><span><b>Dra. Vivian Yalle</b> · Arruda &amp; Vieira Advocacia</span></footer>
+      </blockquote>
+      <a class="lnk" href="https://arrudaevieira.adv.br" target="_blank" rel="noopener">Ver o site no ar →</a>
+    </div>
+  </div>
+  <div class="reels">
+    <div class="txt3">
+      <p class="kick">Vídeos</p>
+      <h3>Você grava com o celular. A gente edita.</h3>
+      <p>Seguindo o nosso roteiro, você grava em casa ou no consultório. Devolvemos com legenda, motion e até animação 3D, como nestes dois reels.</p>
+      <ul><li>Roteiro</li><li>Legenda animada</li><li>Motion e 3D</li><li>Reels, stories e anúncios</li></ul>
+    </div>
+    <div class="fan" id="fan">
+      <div class="mph" data-r="-1"><video muted loop playsinline preload="none" poster="../media/reel-google.jpg"><source src="../media/reel-google.mp4" type="video/mp4"></video><span class="snd">Toque para ouvir</span></div>
+      <div class="mph" data-r="1"><video muted loop playsinline preload="none" poster="../media/reel-marta.jpg"><source src="../media/reel-marta.mp4" type="video/mp4"></video><span class="snd">Toque para ouvir</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="end">A próxima seção entra aqui. Esta prévia mostra a capa, o caminho do cliente e os trabalhos.</section>
 
 <script src="/vendor/lenis.min.js"></script>
 <script type="module">
@@ -450,6 +545,43 @@ steps.forEach((el, n) => el.addEventListener('click', () => {
   if (path.getBoundingClientRect().top > innerHeight) return;
   ph.style.transform = `scale(${k}) rotateY(${P.x * -7}deg) rotateX(${P.y * 4}deg)`;
 })();
+
+/* ---------- seção 3: the browser straightens up, numbers count, the reels fan out ---------- */
+const browser = document.getElementById('browser'), fan = document.getElementById('fan'), mphs = [...fan.querySelectorAll('.mph')];
+const counted = new WeakSet();
+const io = new IntersectionObserver(es => es.forEach(e => {
+  const el = e.target;
+  if (el.tagName === 'VIDEO') { if (e.isIntersecting) { el.preload = 'auto'; el.play().catch(() => {}); } else el.pause(); return; }
+  if (e.isIntersecting && !counted.has(el)) {
+    counted.add(el); const n = +el.dataset.n, t0 = performance.now();
+    (function tick(now) { const k = Math.min(1, (now - t0) / 1400), e2 = 1 - Math.pow(1 - k, 3); el.textContent = Math.round(n * e2); if (k < 1) requestAnimationFrame(tick); })(t0);
+  }
+}), { threshold: 0.4 });
+document.querySelectorAll('.nums b').forEach(el => io.observe(el));
+mphs.forEach(m => {
+  const vd = m.querySelector('video'); io.observe(vd);
+  m.addEventListener('click', () => {
+    const turnOn = vd.muted;
+    mphs.forEach(o => { o.querySelector('video').muted = true; o.querySelector('.snd').textContent = 'Toque para ouvir'; });
+    vd.muted = !turnOn; m.querySelector('.snd').textContent = turnOn ? 'Som ligado' : 'Toque para ouvir'; vd.play().catch(() => {});
+  });
+});
+(function work() {
+  requestAnimationFrame(work);
+  const b = browser.getBoundingClientRect();
+  if (b.top < innerHeight + 200 && b.bottom > -200) {
+    const p = THREE.MathUtils.clamp(1 - (b.top - innerHeight * 0.15) / (innerHeight * 0.75), 0, 1), pe = 1 - Math.pow(1 - p, 3);
+    browser.style.transform = `rotateX(${(1 - pe) * 26}deg) scale(${0.86 + 0.14 * pe}) translateY(${(1 - pe) * 40}px)`;
+  }
+  const f = fan.getBoundingClientRect();
+  if (f.top < innerHeight + 200 && f.bottom > -200) {
+    const q = THREE.MathUtils.clamp(1 - (f.top - innerHeight * 0.1) / (innerHeight * 0.7), 0, 1), qe = 1 - Math.pow(1 - q, 3);
+    const spread = Math.min(f.width * (innerWidth < 760 ? 0.25 : 0.22), 150);
+    mphs.forEach(m => { const r = +m.dataset.r; m.style.transform = `translateX(${r * spread * qe}px) translateY(${(r > 0 ? 30 : -10) * qe}px) rotate(${r * 7 * qe}deg)`; });
+  }
+})();
+const workEl = document.getElementById('trabalho');
+addEventListener('scroll', () => { const w = workEl.getBoundingClientRect(); top.classList.toggle('dark', w.top < 60 && w.bottom > 60); }, { passive: true });
 </script>
 </body>
 </html>
