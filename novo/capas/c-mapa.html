@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Capa C · Cidade no mapa · Spotlit</title>
+<link rel="stylesheet" href="_base.css">
+<style>
+body{background:#eef0ea}
+canvas.gl{z-index:0}
+.fade{position:fixed;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,#eef0ea 0%,rgba(238,240,234,.92) 30%,rgba(238,240,234,0) 58%)}
+.copy{position:fixed;z-index:5;left:var(--pad);top:50%;transform:translateY(-46%);max-width:min(600px,46vw)}
+.kick{font-size:14px;color:var(--muted);margin-bottom:20px}
+h1{font-weight:400;font-size:clamp(44px,5.6vw,92px);line-height:.95;letter-spacing:-.05em}
+.lead{margin-top:24px;font-size:clamp(16px,1.3vw,20px);line-height:1.5;max-width:36ch;color:#2a2b2f}
+.row{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap}
+.tag{position:fixed;z-index:4;left:0;top:0;transform:translate(-50%,-100%);pointer-events:none;background:#fff;border-radius:14px;padding:10px 14px 11px;box-shadow:0 10px 30px rgba(0,0,0,.14);font-size:14px;white-space:nowrap;opacity:0;transition:opacity .5s}
+.tag b{font-weight:500}.tag small{display:block;color:#e8a317;font-size:12px;letter-spacing:1px;margin-top:2px}
+.tag:after{content:"";position:absolute;left:50%;bottom:-6px;width:12px;height:12px;background:#fff;transform:translateX(-50%) rotate(45deg)}
+.tag .n{display:inline-grid;place-items:center;min-width:26px;height:22px;margin-right:8px;border-radius:99px;background:var(--y);font-weight:500;font-size:13px}
+.search{position:fixed;z-index:5;right:var(--pad);bottom:clamp(92px,11vh,120px);display:flex;align-items:center;gap:10px;background:#fff;border-radius:99px;padding:12px 20px;font-size:15px;box-shadow:0 6px 20px rgba(0,0,0,.08)}
+@media (max-width:760px){
+  .fade{background:linear-gradient(0deg,#eef0ea 0%,rgba(238,240,234,.95) 42%,rgba(238,240,234,0) 62%)}
+  .copy{top:auto;bottom:88px;transform:none;max-width:none;right:var(--pad)}
+  h1{font-size:40px}.lead{font-size:16px}
+  .search{display:none}
+}
+</style>
+<script type="importmap">{"imports":{"three":"/vendor/three.module.js"}}</script>
+</head>
+<body>
+<div class="loader"><b>0</b></div>
+<header class="top"><a class="brand" href="#">SPOTLIT<i>.</i></a><a class="btn" href="https://wa.me/5581992071058">Pedir diagnóstico grátis</a></header>
+<canvas class="gl" id="gl"></canvas>
+<div class="fade"></div>
+<div class="search enter d3"><svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="6" fill="none" stroke="#55565a" stroke-width="2"/><path d="M13 13l5 5" stroke="#55565a" stroke-width="2" stroke-linecap="round"/></svg>dentista perto de mim</div>
+<div class="tag" id="tag"><span class="n" id="rank">4º</span><b>Sua empresa</b><small>★★★★★ 5,0</small></div>
+<section class="copy">
+  <p class="kick enter d1">Marketing de Google e IA para negócios locais</p>
+  <h1 class="enter d2">Quando procurarem, que encontrem você.</h1>
+  <p class="lead enter d3">Perfil no Google, respostas da IA, site, vídeos e atendimento no WhatsApp. Atendemos o Brasil todo, 100% online.</p>
+  <div class="row enter d4"><a class="btn btn--y" href="https://wa.me/5581992071058">Pedir diagnóstico grátis</a><a class="btn btn--ghost" href="#">Ver o que fazemos</a></div>
+</section>
+<nav class="switch"><a href="a-holofote.html">A<span> · Holofote</span></a><a href="b-esfera.html">B<span> · Esfera</span></a><a class="on" href="c-mapa.html">C<span> · Mapa</span></a><a href="d-palco.html">D<span> · Palco</span></a></nav>
+
+<script type="module">
+import * as THREE from 'three';
+import { studioEnv, loader, pointer, renderer as mk } from './_studio.js';
+const R = mk(document.getElementById('gl'));
+R.shadowMap.enabled = true; R.shadowMap.type = THREE.PCFSoftShadowMap;
+const scene = new THREE.Scene();
+scene.environment = studioEnv(R);
+scene.fog = new THREE.Fog('#eef0ea', 34, 62);
+const cam = new THREE.PerspectiveCamera(30, innerWidth / innerHeight, 0.1, 200);
+
+// ground, roads, river, parks
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(120, 120), new THREE.MeshStandardMaterial({ color: '#e7e9e2', roughness: 1 }));
+ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
+const river = new THREE.Mesh(new THREE.PlaneGeometry(4, 120), new THREE.MeshStandardMaterial({ color: '#cddcf0', roughness: 0.4 }));
+river.rotation.x = -Math.PI / 2; river.rotation.z = 0.55; river.position.set(-6, 0.01, 0); scene.add(river);
+
+const B = 1.6, GAP = 0.55, N = 15;
+const boxGeo = new THREE.BoxGeometry(1, 1, 1); boxGeo.translate(0, 0.5, 0);
+const bMat = new THREE.MeshStandardMaterial({ color: '#fbfbf8', roughness: 0.75 });
+const inst = new THREE.InstancedMesh(boxGeo, bMat, N * N * 4); inst.castShadow = true; inst.receiveShadow = true;
+const parkMat = new THREE.MeshStandardMaterial({ color: '#cfe0bf', roughness: 1 });
+const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), sc = new THREE.Vector3(), ps = new THREE.Vector3();
+let k = 0; const rnd = (s) => { const x = Math.sin(s * 127.1) * 43758.5453; return x - Math.floor(x); };
+const heights = [];
+for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) {
+  const cx = (i - N / 2) * (B * 2 + GAP), cz = (j - N / 2) * (B * 2 + GAP);
+  // skip blocks on the river
+  const rx = cx * Math.cos(0.55) - cz * Math.sin(0.55); if (Math.abs(rx + 6 * Math.cos(0.55)) < 2.6) continue;
+  if (rnd(i * 31 + j) < 0.1) { const p = new THREE.Mesh(new THREE.PlaneGeometry(B * 2, B * 2), parkMat); p.rotation.x = -Math.PI / 2; p.position.set(cx, 0.02, cz); p.receiveShadow = true; scene.add(p); continue; }
+  for (let a = 0; a < 2; a++) for (let b = 0; b < 2; b++) {
+    const h = 0.4 + Math.pow(rnd(i * 7 + j * 13 + a * 3 + b), 3) * 2.4;
+    ps.set(cx + (a - 0.5) * B * 1.02, 0, cz + (b - 0.5) * B * 1.02);
+    if (Math.hypot(ps.x - 1.2, ps.z + 0.8) < 3.6) continue; sc.set(B * 0.88, h, B * 0.88);
+    m4.compose(ps, q, sc); inst.setMatrixAt(k++, m4);
+  }
+}
+inst.count = k; scene.add(inst);
+
+// pins: competitors in grey, the client's in yellow
+const pin = (color, s) => {
+  const g = new THREE.Group();
+  const m = new THREE.MeshPhysicalMaterial({ color, metalness: 0.1, roughness: 0.25, clearcoat: 1 });
+  const head = new THREE.Mesh(new THREE.SphereGeometry(0.55, 48, 32), m); head.position.y = 1.55; head.castShadow = true; g.add(head);
+  const tip = new THREE.Mesh(new THREE.ConeGeometry(0.42, 1.1, 48), m); tip.rotation.x = Math.PI; tip.position.y = 0.88; tip.castShadow = true; g.add(tip);
+  const dot = new THREE.Mesh(new THREE.SphereGeometry(0.2, 24, 16), new THREE.MeshStandardMaterial({ color: '#ffffff' })); dot.position.set(0, 1.55, 0.42); g.add(dot);
+  g.scale.setScalar(s); scene.add(g); return g;
+};
+const rivals = [[-3, 4], [5, -3], [2, 6], [-7, -5], [8, 4]].map(([x, z]) => { const p = pin('#9a9ca3', 0.85); p.position.set(x * 1.4, 2.2, z * 1.4); return p; });
+const me = pin('#ffc21f', 1.25); me.position.set(1.2, 0, -0.8);
+const ring = new THREE.Mesh(new THREE.RingGeometry(0.6, 0.75, 64), new THREE.MeshBasicMaterial({ color: '#ffc21f', transparent: true, side: THREE.DoubleSide, depthWrite: false }));
+ring.rotation.x = -Math.PI / 2; ring.position.set(1.2, 0.05, -0.8); scene.add(ring);
+const glow = new THREE.PointLight('#ffc93c', 0, 9, 2); glow.position.set(1.2, 2.5, -0.8); scene.add(glow);
+
+const sun = new THREE.DirectionalLight('#fff6e6', 2.2); sun.position.set(-12, 18, 10); sun.castShadow = true;
+sun.shadow.mapSize.set(innerWidth < 760 ? 1024 : 1536, innerWidth < 760 ? 1024 : 1536); Object.assign(sun.shadow.camera, { left: -26, right: 26, top: 26, bottom: -26, near: 1, far: 70 }); sun.shadow.bias = -0.0005; scene.add(sun);
+scene.add(new THREE.HemisphereLight('#ffffff', '#d8dbd2', 0.7));
+
+const P = pointer(); const tag = document.getElementById('tag'), rank = document.getElementById('rank');
+let phone = false;
+function size() { phone = innerWidth < 760; R.setSize(innerWidth, innerHeight, false); cam.aspect = innerWidth / innerHeight; if (phone) cam.setViewOffset(innerWidth, innerHeight, 0, innerHeight * 0.06, innerWidth, innerHeight); else cam.clearViewOffset(); cam.updateProjectionMatrix(); }
+size(); addEventListener('resize', size);
+let started = false, tStart = 0; loader(() => { started = true; tStart = clock.getElapsedTime(); });
+const clock = new THREE.Clock(), v = new THREE.Vector3();
+(function frame() {
+  const t = clock.getElapsedTime(); P.update(t);
+  // camera: a slow orbit round the client's pin, nudged by the pointer
+  const a = 0.75 + t * 0.04 + P.x * 0.25, r = phone ? 30 : 27;
+  const look = phone ? new THREE.Vector3(1.2, 0, -0.8) : new THREE.Vector3(-4.5, 0, -0.8);
+  cam.position.set(look.x + Math.cos(a) * r, 21 + P.y * 2.5, look.z + Math.sin(a) * r); cam.lookAt(look);
+  // the story: rivals drop in, then the client's pin rises above them and lights up
+  const s = started ? t - tStart : 0;
+  rivals.forEach((p, i) => { const k = THREE.MathUtils.clamp((s - i * 0.12) / 0.6, 0, 1); p.position.y = (1 - k) * 4 + Math.sin(t * 1.5 + i) * 0.05; p.visible = k > 0; });
+  const up = THREE.MathUtils.clamp((s - 1.2) / 1.6, 0, 1), e = 1 - Math.pow(1 - up, 3);
+  me.position.y = e * 1.6 + Math.sin(t * 2) * 0.08 * e; me.rotation.y = t * 0.6; me.visible = up > 0;
+  glow.intensity = 18 * e;
+  const pr = (t * 0.6) % 1; ring.scale.setScalar(1 + pr * 3.2); ring.material.opacity = (1 - pr) * 0.8 * e;
+  rank.textContent = up < 0.55 ? '4º' : '1º';
+  v.set(me.position.x, me.position.y + 3.1, me.position.z).project(cam);
+  tag.style.transform = `translate(${(v.x + 1) / 2 * innerWidth}px, ${(1 - v.y) / 2 * innerHeight}px) translate(-50%,-100%)`;
+  tag.style.opacity = up > 0.3 ? 1 : 0;
+  R.render(scene, cam); requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

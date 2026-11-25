@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..700&display=swap");
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f4f2ec;--ink:#0b0c10;--muted:#5d5e62;--y:#ffc93c;--pad:clamp(20px,5.5vw,80px)}
+html,body{height:100%;background:var(--bg);color:var(--ink);font-family:"Schibsted Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{overflow:hidden}
+.top{position:fixed;inset:0 0 auto 0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:22px var(--pad)}
+.brand{font:900 22px/1 "Arial Black",Arial,sans-serif;letter-spacing:-.02em;color:inherit;text-decoration:none}
+.brand i{font-style:normal;color:var(--y)}
+.btn{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 22px;border-radius:99px;background:var(--ink);color:#fff;font:500 15px/1 inherit;font-family:inherit;text-decoration:none;transition:transform .2s,background .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn--y{background:var(--y);color:var(--ink)}
+.btn--ghost{background:transparent;color:inherit;box-shadow:inset 0 0 0 1px currentColor}
+.top .btn{height:42px;font-size:14px}
+canvas.gl{position:fixed;inset:0;width:100%;height:100%;display:block}
+.switch{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:30;display:flex;gap:6px;padding:6px;border-radius:99px;background:rgba(11,12,16,.86);backdrop-filter:blur(8px)}
+.switch a{color:#cfcfcf;text-decoration:none;font:500 13px/1 "Schibsted Grotesk",sans-serif;padding:9px 13px;border-radius:99px}
+.switch a.on{background:var(--y);color:var(--ink)}
+.enter{opacity:0;transform:translateY(18px);animation:enter 1s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes enter{to{opacity:1;transform:none}}
+.d1{animation-delay:.15s}.d2{animation-delay:.3s}.d3{animation-delay:.45s}.d4{animation-delay:.6s}
+.loader{position:fixed;inset:0;z-index:50;background:var(--bg);display:grid;place-items:center;transition:opacity .7s .2s,visibility 0s .9s}
+.loader b{font:400 clamp(64px,12vw,160px)/1 "Schibsted Grotesk";letter-spacing:-.05em;font-variant-numeric:tabular-nums}
+.loader.done{opacity:0;visibility:hidden}
+
+@media (max-width:760px){
+  .switch a{padding:9px 11px;font-size:12px}
+  .switch a span{display:none}
+  .top .btn{height:38px;padding:0 14px;font-size:13px}
+  .row{flex-direction:column}
+  .row .btn{width:100%;justify-content:center}
+}
