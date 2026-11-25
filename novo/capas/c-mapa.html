@@ -51,7 +51,7 @@ const R = mk(document.getElementById('gl'));
 R.shadowMap.enabled = true; R.shadowMap.type = THREE.PCFSoftShadowMap;
 const scene = new THREE.Scene();
 scene.environment = studioEnv(R);
-scene.fog = new THREE.Fog('#eef0ea', 34, 62);
+scene.fog = new THREE.Fog('#eef0ea', innerWidth < 760 ? 48 : 34, innerWidth < 760 ? 80 : 62);
 const cam = new THREE.PerspectiveCamera(30, innerWidth / innerHeight, 0.1, 200);
 
 // ground, roads, river, parks
@@ -110,9 +110,9 @@ const clock = new THREE.Clock(), v = new THREE.Vector3();
 (function frame() {
   const t = clock.getElapsedTime(); P.update(t);
   // camera: a slow orbit round the client's pin, nudged by the pointer
-  const a = 0.75 + t * 0.04 + P.x * 0.25, r = phone ? 30 : 27;
+  const a = 0.75 + t * 0.04 + P.x * 0.25, r = phone ? 44 : 27;
   const look = phone ? new THREE.Vector3(1.2, 0, -0.8) : new THREE.Vector3(-4.5, 0, -0.8);
-  cam.position.set(look.x + Math.cos(a) * r, 21 + P.y * 2.5, look.z + Math.sin(a) * r); cam.lookAt(look);
+  cam.position.set(look.x + Math.cos(a) * r, (phone ? 34 : 21) + P.y * 2.5, look.z + Math.sin(a) * r); cam.lookAt(look);
   // the story: rivals drop in, then the client's pin rises above them and lights up
   const s = started ? t - tStart : 0;
   rivals.forEach((p, i) => { const k = THREE.MathUtils.clamp((s - i * 0.12) / 0.6, 0, 1); p.position.y = (1 - k) * 4 + Math.sin(t * 1.5 + i) * 0.05; p.visible = k > 0; });
